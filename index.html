@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <title>বাসের আসন তালিকা - ২০২৬</title>
+    <style>
+        @page { 
+            size: A4; 
+            margin: 5mm; 
+        }
+        body { 
+            font-family: 'Arial', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #fff;
+        }
+        
+        .main-header {
+            text-align: center;
+            padding: 15px 0;
+            border-bottom: 4px solid #000;
+            margin-bottom: 10px;
+        }
+        .main-header h1 {
+            font-size: 32px;
+            margin: 0;
+            font-weight: 900;
+        }
+        .main-header h2 {
+            font-size: 24px;
+            margin: 5px 0;
+            font-weight: bold;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+            background-color: #000; /* কাটিং লাইনের জন্য কালো ব্যাকগ্রাউন্ড */
+            border: 2px solid #000;
+        }
+
+        .ticket {
+            height: 180px; /* কার্ডের উচ্চতা কিছুটা কমানো হয়েছে */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: #fff;
+            box-sizing: border-box;
+            page-break-inside: avoid;
+            padding: 10px;
+        }
+
+        .school-name { 
+            font-size: 18px; 
+            font-weight: bold; 
+            margin-bottom: 10px;
+        }
+
+        /* আপনার চাহিদা অনুযায়ী ফন্ট সাইজ ৩০ করা হলো */
+        .seat-no { 
+            font-size: 30px; 
+            font-weight: bold; 
+            color: #000;
+            border: 2px solid #000;
+            padding: 5px 20px;
+            display: inline-block;
+        }
+
+        .footer-text { 
+            font-size: 14px; 
+            margin-top: 15px; 
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-header">
+    <h1>মির্জাগঞ্জ আইডিয়াল স্কুল এন্ড কলেজ</h1>
+    <h2>শিক্ষা সফর-২০২৬ (বাসের আসন তালিকা)</h2>
+</div>
+
+<div class="container" id="ticketContainer"></div>
+
+<script>
+    function toBengaliNumber(n) {
+        const bng = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
+        return n.toString().split('').map(d => bng[d] || d).join('');
+    }
+
+    const container = document.getElementById('ticketContainer');
+
+    function createTicket(label, number) {
+        let bngNum = toBengaliNumber(number);
+        return `
+            <div class="ticket">
+                <div class="school-name">মির্জাগঞ্জ আইডিয়াল স্কুল এন্ড কলেজ</div>
+                <div class="seat-no">${label}-${bngNum}</div>
+                <div class="footer-text">শিক্ষা সফর - ২০২৬</div>
+            </div>`;
+    }
+
+    // ৪২টি সাধারণ আসন
+    for (let i = 1; i <= 42; i++) {
+        container.innerHTML += createTicket("আসন", i);
+    }
+    // ৪টি বক্স
+    for (let i = 1; i <= 4; i++) {
+        container.innerHTML += createTicket("বক্স", i);
+    }
+    // ৪টি ভিআইপি
+    for (let i = 1; i <= 4; i++) {
+        container.innerHTML += createTicket("ভি.আই.পি", i);
+    }
+</script>
+
+</body>
+</html>
+
